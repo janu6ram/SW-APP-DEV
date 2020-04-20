@@ -75,16 +75,23 @@ a {
     <p>Please fill in this form to create an account.</p>
     <hr>
 
+    <label for="username"><b>User Name*</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+
+    <label for="psw"><b>Password*</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
     <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+    <input type="text" placeholder="Enter email(optional)" name="email">
+    <div>
+      <label for="Gender"><b>Gender</b></label>
+      <input list="gender" placeholder="select" name="gender">
+      <datalist id="gender">
+        <option value="Male">
+        <option value="Female">
+      </datalist>
+    </div>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
     <hr>
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
     <button type="submit" class="registerbtn">Register</button>
   </div>
