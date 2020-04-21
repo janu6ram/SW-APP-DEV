@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home Page</title>
+        <h1 style="text-align: center;">e-Book Store</h1>
+        <style>
+            * {
+            background-color: rgb(136, 243, 87);
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            }
+            button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            }
+
+            button:hover {
+            opacity: 0.8;
+            }
+
+            .linkbutton {
+            width: auto;
+            padding: 10px 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Welcome {{username}}</h2>
+        <form action="{{ url_for('logout') }}">
+            <div align=right>
+                <label>
+                    <a href="login.html"><button type="button" class="linkbutton">Logout</button></a>
+                </label>
+
+            </div>
+        </form>
+
+    </body>
+
+
+</html>

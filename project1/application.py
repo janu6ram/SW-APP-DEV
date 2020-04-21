@@ -1,11 +1,12 @@
 import os
 
-from flask import Flask, session,render_template,request
+from flask import Flask, session,render_template,request,session,redirect,url_for
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_sqlalchemy import SQLAlchemy
 from registerdb import db,Users
+
 
 app = Flask(__name__)
 
@@ -23,8 +24,17 @@ with app.app_context():
 
 
 @app.route("/")
+@app.route("/", methods=["POST","GET"])
 def index():
-    return "Project 1: TODO"
+    if request.method == "POST":
+        user = request.form.get("name")
+        if user == "Admin":
+            message = "Dear Admin please login"
+            return render_template("login.html",message=message)
+        else:
+            return render_template("registration.html")
+
+    return render_template("index.html")
 
 @app.route("/register", methods=["POST","GET"])
 @app.route("/registration.html", methods=["POST","GET"])
@@ -50,6 +60,18 @@ def register():
 @app.route("/login.html",methods=["POST","GET"])
 def login():
     if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        if username == "janu@janu" and password == "Rk@123456":
+            return redirect(url_for("admin"))
+        user = Users.query.get(username)
+        if user != None:
+            if password == user.password:
+                session["email"] = username
+                return render_template("homepage.html",username=username)
+            else:
+                message = "Wrong Password please try again"
+                return render_template("login.html",message=message)
         return render_template("success.html")
     return render_template("login.html")
 
@@ -57,3 +79,9 @@ def login():
 def admin():
     data = Users.query.all()
     return render_template("admin.html",data=data)
+
+@app.route("/logout")
+def logout():
+    session["email"] = None
+    message = "You have sucessfully logged out"
+    return render_template("login.html",message=message)
