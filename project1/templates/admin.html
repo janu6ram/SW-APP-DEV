@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>admin page</title>
+        <h1 style="text-align: center;">Welcome to the ADMIN page!!</h1>
+        <style>
+            table {
+                border: 2px solid black;
+                border-collapse: collapse;
+                width: 50%;
+                font-size: large;
+                font-weight: bold;
+            }
+            th {
+                /* text-size-adjust: 12;
+                text-indent: 1mm; */
+                background-color: lightgray;
+                font-size: large;
+                font-weight: bold;
+            }
+            td {
+                font-size: large;
+                font-weight: lighter;
+
+            }
+            th,td {
+                border: 1px solid black;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>password</th>
+                    <th>date stramp</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in data %}
+                <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.time}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
