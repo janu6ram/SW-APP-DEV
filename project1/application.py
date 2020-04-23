@@ -23,7 +23,6 @@ with app.app_context():
     db.create_all()
 
 
-@app.route("/")
 @app.route("/", methods=["POST","GET"])
 def index():
     if request.method == "POST":
@@ -32,18 +31,17 @@ def index():
             message = "Dear Admin please login"
             return render_template("login.html",message=message)
         else:
-            return render_template("registration.html")
+            return redirect(url_for("register"))
 
     return render_template("index.html")
 
 @app.route("/register", methods=["POST","GET"])
-@app.route("/registration.html", methods=["POST","GET"])
 def register():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         email = request.form.get("email")
-        gender = request.form.get("gender")
+        gender = request.form.get("name")
         new_user=Users(username = username, password = password, email = email, gender = gender)
         try:
             db.session.add(new_user)
@@ -57,18 +55,19 @@ def register():
     msg = "Please fill in this form to create an account."
     return render_template("registration.html",message = msg)
 
-@app.route("/login.html",methods=["POST","GET"])
+@app.route("/login",methods=["POST","GET"])
 def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
         if username == "janu@janu" and password == "Rk@123456":
+            session["Admin"] = username
             return redirect(url_for("admin"))
         user = Users.query.get(username)
         if user != None:
             if password == user.password:
                 session["email"] = username
-                return render_template("homepage.html",username=username)
+                return redirect(url_for("home"))
             else:
                 message = "Wrong Password please try again"
                 return render_template("login.html",message=message)
@@ -77,11 +76,21 @@ def login():
 
 @app.route("/admin")
 def admin():
-    data = Users.query.all()
+    if session["Admin"] is None:
+        return redirect(url_for("register"))
+    data = Users.query.order_by("time").all()
     return render_template("admin.html",data=data)
+@app.route("/home")
+def home():
+    if session["email"] is None:
+        return redirect(url_for("register"))
+    message = session["email"]
+    return render_template("homepage.html",username=message)
 
 @app.route("/logout")
 def logout():
+    if not session["Admin"] is None:
+        session["Admin"] = None
     session["email"] = None
     message = "You have sucessfully logged out"
-    return render_template("login.html",message=message)
+    return redirect(url_for("register"))

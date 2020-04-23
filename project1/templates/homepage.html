@@ -8,6 +8,7 @@
             background-color: rgb(136, 243, 87);
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
+            color: white;
             }
             button {
             background-color: #4CAF50;
@@ -31,15 +32,12 @@
     </head>
     <body>
         <h2>Welcome {{username}}</h2>
-        <form action="{{ url_for('logout') }}">
-            <div align=right>
-                <label>
-                    <a href="login.html"><button type="button" class="linkbutton">Logout</button></a>
-                </label>
+        <div align=right>
+            <label>
+                <a href="login"><button type="button" class="linkbutton">Logout</button></a>
+            </label>
 
-            </div>
-        </form>
-
+        </div>
     </body>
 
 

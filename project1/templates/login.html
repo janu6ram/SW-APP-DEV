@@ -3,20 +3,32 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  * {
+            background-color: rgb(136, 243, 87);
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            }
 body {font-family: Arial, Helvetica, sans-serif;}
 form {border: 3px solid #f1f1f1;}
 
 input[type=text], input[type=password] {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: 15px;
+  margin: 5px 0 22px 0;
   display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+  border: none;
+  color: black;
+  background: white;
+}
+input[type=text]:focus, input[type=password]:focus {
+  background-color:white;
+  color: black;
+  outline: none;
 }
 
 button {
-  background-color: #4CAF50;
+  background-color:tomato;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -67,8 +79,8 @@ span.psw {
 </style>
 </head>
 <body>
-
-<h2 style="text-align: center;">Login</h2>
+  <h1 style="text-align: center;">e-Book Store</h1>
+<h2>Login</h2>
 
 <form action="{{ url_for('login') }}" method="post">
   {% if message %}
@@ -90,7 +102,7 @@ span.psw {
     <button type="submit">Login</button>
     <label>
       If you are new user
-      <a href=registration.html><button type="button" class="linkbutton">Click Here</button></a>
+      <a href=register><button type="button" class="linkbutton">Click Here</button></a>
     </label>
   </div>
 
