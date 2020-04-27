@@ -76,9 +76,9 @@ def login():
 
 @app.route("/admin")
 def admin():
-    if session["Admin"] is None:
-        return redirect(url_for("register"))
-    data = Users.query.order_by("time").all()
+    # if session["Admin"] is None:
+    #     return redirect(url_for("login"))
+    data = Users.query.order_by(Users.time.desc()).all()
     return render_template("admin.html",data=data)
 @app.route("/home")
 def home():
@@ -87,10 +87,15 @@ def home():
     message = session["email"]
     return render_template("homepage.html",username=message)
 
+@app.route("/success")
+def success():
+    return render_template("success.html")
 @app.route("/logout")
 def logout():
     if not session["Admin"] is None:
         session["Admin"] = None
+        return redirect(url_for("home"))
+
     session["email"] = None
     message = "You have sucessfully logged out"
-    return redirect(url_for("register"))
+    return render_template("success.html",message=message)
